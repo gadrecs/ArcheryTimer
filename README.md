@@ -3,7 +3,7 @@ An archery - Timer for FITA-tournaments using a Raspberry.
 
 This application is designed for raspberry Pi 1 (or later) with an external Touchscreen (ideal: 5" 800x480 px)
 Usage: steering of external hardware connected via external board-equipment
-(Hardware-Specs and layouts to follow)
+(Hardwarelayouts in PDF File)
 
 all overall a very simple program using the Raspis GPIO Ports
 
