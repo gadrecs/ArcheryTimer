@@ -1,5 +1,5 @@
 # ArcheryTimer
-An archery - Timer for FITA-tournaments using a Raspberry.
+An archery - Timer for FITA-tournaments using a Raspberry for controlling lowcost-hardware on the archery range.
 
 This application is designed for raspberry Pi 1 (or later) with an external Touchscreen (ideal: 5" 800x480 px)
 Usage: steering of external hardware connected via external board-equipment
