@@ -10,8 +10,11 @@ all overall a very simple program using the Raspis GPIO Ports
 The LED and beeper-sequences correspond with the FITA - given regulations.
 
 Phase 1)  Beep and RED light for 10 Seconds    -> Preparation
+
 Phase 2)  Beep and GREEN light for 210 Seconds -> Shooting
+
 Phase 3)  no Beep, ORANGE light for 30 seconds -> Warning phase
+
 Phase 4)  3 Beeps, RED light                   -> End of circle 
 
 there is a possibility of "breaking" the shooting circle in case of emergency !
