@@ -1,6 +1,6 @@
 ﻿#######################################
 ## Bogentimer mit GPIO - Ansteuerung ##
-## v0.8 - 12.11.2016 - by mpoe       ##
+## v1.0 - 04.12.2016 - by gadrecs    ##
 #######################################
 
 #Bibliotheken einbinden
@@ -31,7 +31,6 @@ TASTER = 26
 GPIO.setup(ROT, GPIO.OUT) 								#rot
 GPIO.setup(GELB, GPIO.OUT) 								#gelb
 GPIO.setup(GRUEN, GPIO.OUT) 							#gruen
-GPIO.setup(PIEZO, GPIO.OUT) 							#piepser
 GPIO.setup(TASTER, GPIO.IN, pull_up_down=GPIO.PUD_UP) 	#Taster
 
 # alles abschalten
@@ -40,7 +39,7 @@ GPIO.output(ROT, False)
 GPIO.output(GELB, False)
 GPIO.output(GRUEN, False)
 
-# Globals definieren
+# Globals definieren 
 VORBEREITUNGK = 4		# Zeit in Sek. für die "rote" Phase im Kurzprogramm
 SCHIESSENK = 4			# Zeit in Sek. für die "gruene" Phase im Kurzprogramm - Achtung: addiert mit WARNUNGK ergibt das die Gesamtschiesszeit !!!
 WARNUNGK = 2			# Zeit in Sek. für die "orangene" Phase im Kurzprogramm 
@@ -230,7 +229,7 @@ class GUI1:								# Fenster für die GUI definieren und starten
 		self.master = master
 		#self.master.geometry("800x450")
 		master.attributes('-fullscreen', True)
-		master.title("Bogentimer v0.8")		# Titel des Fensters
+		master.title("Bogentimer v1.0")		# Titel des Fensters
 
 		self.background = tk.Label(master, image=background)
 		background.image = background
@@ -238,7 +237,7 @@ class GUI1:								# Fenster für die GUI definieren und starten
 
 		# Überschrift über den Buttons:
 
-		self.label1 = tk.Label(master, text="  --== BMW-Bogenschützen ==--  ", font="Helvetica 25 bold", bg="black", fg="medium spring green")
+		self.label1 = tk.Label(master, text="  --== Bogentimer ==--  ", font="Helvetica 25 bold", bg="black", fg="medium spring green")
 		self.label1.grid(row=0, columnspan=5)
 
 		# Überschrift über den Buttons:
@@ -257,8 +256,6 @@ class GUI1:								# Fenster für die GUI definieren und starten
 		self.close_button = tk.Button(master, text="SOFORT-\nABBRUCH", command=sofortabbruch, height = 5, width = 12, bg="red", fg="black", activebackground="firebrick", relief="raised", font="Helvetica 14 bold")
 		self.close_button.grid(row=6, column=1)
 		
-		
-
 		#Button 2 (KURZ - 120s)
 		self.kurz_button = tk.Button(master, text="KURZ\n'Liga'\n120s", command=kurzthread, height = 7, width = 12, bg="pale green", fg="black", activebackground="green", relief="raised", font="Helvetica 14 bold")
 		self.kurz_button.grid(row=4, column=0)
@@ -266,14 +263,11 @@ class GUI1:								# Fenster für die GUI definieren und starten
 		# Überschrift über den Buttons:
 		self.label1 = tk.Label(master, text="", font="Helvetica 2")
 		self.label1.grid(row=5, columnspan=2)
-
 		
 		#Button 3 (LANG - 240s)
 		self.lang_button = tk.Button(master, text="LANG\n'FITA'\n240s", command=langthread, height = 7, width = 12, bg="cyan", fg="black", activebackground="blue", relief="raised", font="Helvetica 14 bold")
 		self.lang_button.grid(row=4, column=1)
 		
-		#path = "/home/pi/python/images/bmw200.jpg"
-
 		#Creates a Tkinter-compatible photo image, which can be used everywhere Tkinter expects an image object.
 		logo = tk.PhotoImage(file="/home/pi/python/images/bmw200.gif")
 
