@@ -45,28 +45,30 @@ void setup()
   digitalWrite(segmentData, LOW);
   digitalWrite(segmentLatch, LOW);
 
-  postNumber(0,0);
-  postNumber(0,0);
-  postNumber(0,0);
+  showNumber(0);
   delay(2000);
 
 }
 
 void loop()
-  {
+{
+    //Serial.println("loop started");
+    showNumber(0);
+    delay(150);
     stopstate = 0;
     getStart();
     if (start == 1)
       {
       countDown();
-      int start = 0;
+      start = 0;
       }
     else return;
-  }
+    
+}
 
 
 void getStop()
-  {
+{
   // read the state of the pushbutton value:
   buttonStateyel = digitalRead(buttonyel);
   buttonStategre = digitalRead(buttongre);
@@ -76,16 +78,16 @@ void getStop()
       // STOP ausgelöst
       stopstate = 1;
       counttime = 0;
-      Serial.print("Stopstate: ");
-      Serial.println(stopstate); //for debugging
+      //Serial.print("Stopstate: ");
+      //Serial.println(stopstate); //for debugging
     }
     return;
-  } 
+} 
 
 
 
 void getStart()
-  {
+{
   // read the state of the pushbutton value:
   buttonStateyel = digitalRead(buttonyel);
   buttonStategre = digitalRead(buttongre);
@@ -93,45 +95,45 @@ void getStart()
     if (buttonStategre == HIGH && buttonStateyel == LOW)
     {
       // LANGES Programm ausgelöst
-      int counttime = 4 * lang; 
-      Serial.println(counttime); //for debugging
+      counttime = 4 * lang; 
+      //Serial.println("counttime lang"); //for debugging
       start = 1;
     }
     if (buttonStategre == LOW && buttonStateyel == HIGH)
     {
       // kurzes Programm ausgelöst
-      int counttime = 4 * kurz; 
-      Serial.println(counttime); //for debugging
+      counttime = 4 * kurz; 
+      //Serial.println("counttime kurz"); //for debugging
       start = 1;
     }
     return;
-  } 
+} 
 
 
 void showNumber(float value)   //Takes a number and displays the numbers. Displays absolute value (no negatives)
-  {
+{
     int number = abs(value); //Remove negative signs and any decimals
 
-    Serial.print("number: ");
-    Serial.println(number);
+    //Serial.print("number: ");
+    //Serial.println(number);
 
     for (byte x = 0 ; x < 3 ; x++)
       {
       int remainder = number % 10;
       postNumber(remainder, false);
-      Serial.print("remainder: ");
-      Serial.println(remainder);
+      //Serial.print("remainder: ");
+      //Serial.println(remainder);
       number /= 10;
       }
       //Latch the current segment data
       digitalWrite(segmentLatch, LOW);
       digitalWrite(segmentLatch, HIGH); //Register moves storage register on the rising edge of RCK
-  }
+}
 
   
 void postNumber(byte number, boolean decimal)  //Given a number, or '-', shifts it out to the display
-  {
-  Serial.print("postNumber |");
+{
+  //Serial.print("postNumber |");
   //    -  A
   //   / / F/B
   //    -  G
@@ -170,43 +172,47 @@ void postNumber(byte number, boolean decimal)  //Given a number, or '-', shifts 
 
   //Clock these bits out to the drivers
   for (byte x = 0 ; x < 8 ; x++)
-    
+    {
     digitalWrite(segmentClock, LOW);
     digitalWrite(segmentData, segments & 1 << (7 - x));
     digitalWrite(segmentClock, HIGH); //Data transfers to the register on the rising edge of SRCK
-  }
-
+    }
+}
 
 
 void countDown()
 
   {
-  Serial.print("Start Countdown...");
-  Serial.print("prepare !");
-  for (int prep = prepare; prep > -1; prep--)
+  //Serial.print("Start Countdown...");
+  //Serial.print("prepare !");
+  showNumber(prepare);
+  delay(750);
+  for (int prep = prepare * 4 ; prep > -1; prep--)
   {
-    showNumber(prep); //Test pattern
-    Serial.println(prep); //For debugging
-    delay(1000);
+    showNumber(prep/4); //Test pattern
+    //Serial.println(prep); //For debugging
+    delay(250);
     getStop();
     if (stopstate == 1)
       break;
   }
-  
-  Serial.print("count !");
-  for (int count = lang; count > -1; count--)
+  showNumber(counttime/4);
+  delay(750);
+  //Serial.print("count !");
+  for (int count = counttime; count > -1; count--)
   {
-    showNumber(count); //Test pattern
-    Serial.print("counttime: ");
-    Serial.println(count); //For debugging
+    showNumber(count/4); //Test pattern
+    //Serial.print("counttime: ");
+    //Serial.println(count); //For debugging
     delay(250);
-    //getStop();
-    //if (stopstate == 1)
-    //  break;
-    if (count == 0)
-      stopstate = 1;
-      break;
+    getStop();
+    if (stopstate == 1)
+      return;
   }
+  return;
+  
+  start = 0;
+  return;
   }
  // while (stopstate != 0);
  // return;
