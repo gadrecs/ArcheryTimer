@@ -1,12 +1,12 @@
-// 7-Segment-Countdown with external triggers
+// 7-Segment-Countdown with external triggers using the sparkfun large digit driver-Modules
  
 //GPIO declarations
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-byte segmentLatch = 5;
+byte segmentLatch = 5;       //BUS-Ports for 7Segment
 byte segmentClock = 6;
 byte segmentData = 7;
 
-const int buttonyel = 2;     // the number of the pushbutton pin
+const int buttonyel = 2;     // the number of the trigger pin
 const int buttongre = 3;
 
 const int yelPin =  13;      // the number of the LED pin
@@ -14,13 +14,13 @@ const int grePin =  12;
 const int redPin =  11;
 
 //definiere Zeiten:
-const int lang = 240;
+const int lang = 240;        // time definitions in seconds
 const int kurz = 120;
 const int prepare = 10;
 
 int stopstate = 0;
 int counttime = 0;
-int buttonStateyel = 0;         // variable for reading the pushbutton status
+int buttonStateyel = 0;      // variable for reading the pushbutton status
 int buttonStategre = 0;
 int x = 0;
 int start = 0;
